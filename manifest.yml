@@ -1,0 +1,11 @@
+---
+applications:
+- instances: 1
+  timeout: 180
+  name: swiftwebapp
+  buildpack: swift_buildpack
+  command: "'swiftwebapp'"
+  memory: 128M
+env:
+    CF_STAGING_TIMEOUT: 30
+    CF_STARTUP_TIMEOUT: 15
