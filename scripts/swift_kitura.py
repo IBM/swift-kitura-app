@@ -21,7 +21,7 @@ else:
     if title_text == "Congratulations!":
         print("Experience Test Successful")
     else:
-        sys.exit("Experience Test Failed: unexpected subtitle text {}".format(title_text))
+        sys.exit("Experience Test Failed: unexpected title text {}".format(title_text))
 
 subtitle_text = driver.find_elements_by_xpath('//h2')[0].text
 if len(subtitle_text) == 0:
