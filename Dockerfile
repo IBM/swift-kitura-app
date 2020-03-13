@@ -1,4 +1,4 @@
-FROM swift:5.1.1
+FROM swift:5.1.5
 LABEL maintainer="IBM Swift Engineering at IBM Cloud"
 LABEL Description="Template Dockerfile that extends the ibmcom/swift-ubuntu image."
 

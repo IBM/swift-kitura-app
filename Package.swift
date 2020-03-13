@@ -1,4 +1,4 @@
-// swift-tools-version:4.0
+// swift-tools-version:5.1
 import PackageDescription
 
 let package = Package(
@@ -11,7 +11,7 @@ let package = Package(
     ],
     targets: [
       .target(name: "swiftwebapp", dependencies: [ .target(name: "Application"), "Kitura" , "HeliumLogger"]),
-      .target(name: "Application", dependencies: [ "Kitura", "CloudEnvironment","Health", 
+      .target(name: "Application", dependencies: [ "Kitura", "CloudEnvironment","Health",
 
       ]),
 
