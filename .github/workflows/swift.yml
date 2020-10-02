@@ -9,6 +9,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Install swiftenv
+      run: |-
+        brew install kylef/formulae/swiftenv
+        echo 'if which swiftenv > /dev/null; then eval "$(swiftenv init -)"; fi' >> ~/.bash_profile
+    - name: Install Swift
+      run: |-
+        if ! (swiftenv versions | grep "*"); then
+          echo "Swift version not found. Installing..."
+          swiftenv install
+        fi
     - name: Build
       run: swift build -v
     - name: Run tests
