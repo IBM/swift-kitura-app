@@ -12,4 +12,13 @@ func initializeHealthRoutes(app: App) {
         }
     }
     
+    app.router.head("/health") { (request, response, next) in
+        if health.status.state == .UP {
+            response.status(.OK)
+        } else {
+            response.status(.serviceUnavailable)
+        }
+
+        next()
+    }
 }
