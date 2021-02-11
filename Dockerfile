@@ -1,8 +1,11 @@
-FROM swift:5.3
+FROM swift:5.3 as build
 LABEL maintainer="IBM Swift Engineering at IBM Cloud"
 LABEL Description="Template Dockerfile that extends the ibmcom/swift-ubuntu image."
 
-RUN apt-get update && apt-get install -y sudo openssl libssl-dev libcurl4-openssl-dev
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends sudo=1.8.21p2-3ubuntu1.4 libssl-dev=1.1.1-1ubuntu2.1~18.04.7 libcurl4-openssl-dev=7.58.0-2ubuntu3.12 \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 # We can replace this port with what the user wants
 EXPOSE 8080 1024 1025
@@ -30,16 +33,22 @@ RUN echo "$bx_dev_user ALL=NOPASSWD: ALL" > /etc/sudoers.d/user && \
 
 # Bundle application source & binaries
 COPY . /swift-project
-RUN cd /swift-project && /swift-utils/tools-utils.sh build release
+WORKDIR /swift-project
+RUN /swift-utils/tools-utils.sh build release
 
 
 FROM swift:5.3
 LABEL maintainer="IBM Swift Engineering at IBM Cloud"
 LABEL Description="Template Dockerfile that extends the ibmcom/swift-ubuntu-runtime image."
 
-RUN apt-get update && apt-get install -y sudo openssl libssl-dev libcurl4-openssl-dev
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends sudo=1.8.21p2-3ubuntu1.4 libssl-dev=1.1.1-1ubuntu2.1~18.04.7 libcurl4-openssl-dev=7.58.0-2ubuntu3.12 \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 # We can replace this port with what the user wants
+ENV PORT 8080
+
 EXPOSE 8080
 
 # Default user if not provided
@@ -58,7 +67,7 @@ RUN chmod -R 555 /swift-utils
 RUN if [ $bx_dev_user != "root" ]; then useradd -ms /bin/bash -u $bx_dev_userid $bx_dev_user; fi
 
 # Bundle application source & binaries
-COPY --from=0 /swift-project ./swift-project
+COPY --from=build /swift-project ./swift-project
 
 # Command to start Swift application
 CMD [ "sh", "-c", "cd /swift-project && .build-ubuntu/release/swiftwebapp" ]
