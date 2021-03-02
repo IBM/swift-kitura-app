@@ -2,8 +2,9 @@ FROM swift:5.3 as build
 LABEL maintainer="IBM Swift Engineering at IBM Cloud"
 LABEL Description="Template Dockerfile that extends the ibmcom/swift-ubuntu image."
 
+# hadolint ignore=DL3008
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends sudo=1.8.21p2-3ubuntu1.4 libssl-dev=1.1.1-1ubuntu2.1~18.04.7 libcurl4-openssl-dev=7.58.0-2ubuntu3.12 \
+  && apt-get install -y --no-install-recommends sudo libssl-dev libcurl4-openssl-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -41,8 +42,9 @@ FROM swift:5.3
 LABEL maintainer="IBM Swift Engineering at IBM Cloud"
 LABEL Description="Template Dockerfile that extends the ibmcom/swift-ubuntu-runtime image."
 
+# hadolint ignore=DL3008
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends sudo=1.8.21p2-3ubuntu1.4 libssl-dev=1.1.1-1ubuntu2.1~18.04.7 libcurl4-openssl-dev=7.58.0-2ubuntu3.12 \
+  && apt-get install -y --no-install-recommends sudo libssl-dev libcurl4-openssl-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
