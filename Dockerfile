@@ -4,7 +4,7 @@ LABEL Description="Template Dockerfile that extends the ibmcom/swift-ubuntu imag
 
 # hadolint ignore=DL3008
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends sudo libssl-dev libcurl4-openssl-dev= \
+  && apt-get install -y --no-install-recommends sudo libssl-dev libcurl4-openssl-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
