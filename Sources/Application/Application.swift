@@ -5,6 +5,7 @@ import Configuration
 import CloudEnvironment
 import KituraContracts
 import Health
+import KituraOpenAPI
 
 public let projectPath = ConfigurationManager.BasePath.project.path
 public let health = Health()
@@ -21,6 +22,7 @@ public class App {
         router.all(middleware: StaticFileServer())
         // Endpoints
         initializeHealthRoutes(app: self)
+        KituraOpenAPI.addEndpoints(to: router) // Use the default endpoints
     }
 
     public func run() throws {
