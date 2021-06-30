@@ -1,4 +1,4 @@
-FROM swift:5.4.1 as build
+FROM swift:5.4.2 as build
 LABEL maintainer="IBM Swift Engineering at IBM Cloud"
 LABEL Description="Template Dockerfile that extends the ibmcom/swift-ubuntu image."
 
@@ -38,7 +38,7 @@ WORKDIR /swift-project
 RUN /swift-utils/tools-utils.sh build release
 
 
-FROM swift:5.4.1
+FROM swift:5.4.2
 LABEL maintainer="IBM Swift Engineering at IBM Cloud"
 LABEL Description="Template Dockerfile that extends the ibmcom/swift-ubuntu-runtime image."
 
